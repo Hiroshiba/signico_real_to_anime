@@ -1,0 +1,95 @@
+{
+  "base_version": 2,
+  "dataset": {
+    "a_domain_images_path": "./inputs/",
+    "b_domain_images_path": "./targets/",
+    "b_only": false,
+    "seed_evaluation": 0,
+    "augmentation": [
+      [
+        "scale",
+        1.1,
+        1.3
+      ],
+      [
+        "crop",
+        96,
+        96
+      ],
+      [
+        "flip",
+        0.5,
+        0.0
+      ]
+    ],
+    "output": null,
+    "num_test": 600
+  },
+  "model": {
+    "name": "co_encode_model",
+    "num_encoder_block": 4,
+    "num_decoder_block": 4,
+    "num_z_base_encoder": 16,
+    "num_z_base_decoder": 32,
+    "num_z_feature": 128,
+    "num_z_base_discriminator": null,
+    "image_width": 96,
+    "method_output": {
+      "name": "regression",
+      "channel": 3
+    },
+    "initialW": null,
+    "other": {},
+    "pre_trained_path": null,
+    "discriminator": false,
+    "latent_discriminator": null
+  },
+  "loss": {
+    "name": null,
+    "blend": {
+      "main": {
+        "discriminator": 1.0,
+        "mse_auto_encoded": 0.5,
+        "mse_twice_converted": 0.5,
+        "mse_z": 0.1,
+        "kl": 1.0,
+        "nll_auto_encoded": 1.0,
+        "sce_auto_encoded": 1.0
+      },
+      "discriminator": {
+        "ae": 0.333,
+        "conv": 0.5,
+        "conv1": 0.333,
+        "conv2": 0.333
+      }
+    },
+    "blend_discriminator": {
+      "real": 1.0,
+      "fake": 1.0,
+      "fake_ae": 0.333,
+      "fake_conv": 0.5,
+      "fake_conv1": 0.333,
+      "fake_conv2": 0.333
+    },
+    "other": {
+    }
+  },
+  "train": {
+    "batchsize": 12,
+    "gpu": -1,
+    "optimizer": {
+      "main": {
+        "name": "adam",
+        "weight_decay": null
+      },
+      "discriminator": "same",
+      "latent_discriminator": "same"
+    },
+    "log_iteration": 100,
+    "save_result_iteration": 10000,
+    "project_name": "test_{date}_{hash}",
+    "result_path": "./result",
+    "tags": [],
+    "comment": ""
+  }
+}
